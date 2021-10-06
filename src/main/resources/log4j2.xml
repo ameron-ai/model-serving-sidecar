@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{yyy-MM-dd'T'HH:mm:ss.SSS'Z'} [Thread:%t] [Level:%level] [Logger:%logger] [Trace:%X{traceId}] [Span:%X{spanId}] [ParentSpan:%X{parentId}] [Message:%msg]%n"/>
+    </Console>
+    <RollingFile
+      name="RollingFile"
+      fileName="${env:APP_LOGGING_FILE:-logs/ameron-sidecar.log}"
+      filePattern="${env:APP_LOGGING_FILE:-logs/ameron-sidecar.log}.%i.gz"
+    >
+      <PatternLayout pattern="%d{yyy-MM-dd'T'HH:mm:ss.SSS'Z'} [Thread:%t] [Level:%level] [Logger:%logger] [Trace:%X{traceId}] [Span:%X{spanId}] [ParentSpan:%X{parentId}] [Message:%msg]%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="${env:APP_LOGGING_FILE_SIZE:-10MB}"/>
+      </Policies>
+      <DefaultRolloverStrategy max="${env:APP_LOGGING_MAX_NUMBER:-3}"/>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Root level="${env:APP_LOGGING_LEVEL:-INFO}">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="RollingFile"/>
+    </Root>
+  </Loggers>
+</Configuration>
