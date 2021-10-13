@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @Slf4j
 @RestController
-@RequestMapping( path = "/api")
+@RequestMapping( path = "/api",
+    consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class PredictionRequestController {
   private PredictionService service;
 
-  @PostMapping(path="/predict",
-      consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(path="/predict")
   public PredictionResponse predict(@RequestBody PredictionRequest request){
     return service.predict(request.getFeatures());
   }
