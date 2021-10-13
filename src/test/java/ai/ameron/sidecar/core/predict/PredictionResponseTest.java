@@ -1,10 +1,14 @@
 package ai.ameron.sidecar.core.predict;
 
+import static ai.ameron.sidecar.TestUtil.buildNode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import ai.ameron.sidecar.TestUtil;
 import ai.ameron.sidecar.core.model.ModelServiceErrorCodes;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -14,13 +18,13 @@ public class PredictionResponseTest {
   Prediction buildSuccessPrediction(){
     return new Prediction(
         false, null, null,
-        "success-model", "1.0.0", 100L, "success");
+        "success-model", "1.0.0", 100L, buildNode("success"));
   }
 
   Prediction buildErrorPrediction(){
     return new Prediction(
         true, ModelServiceErrorCodes.ERROR_CALLING_MODEL_SERVICE, "Error",
-        "success-model", "1.0.0", 100L, "success");
+        "success-model", "1.0.0", 100L, buildNode("success"));
   }
 
   @Test

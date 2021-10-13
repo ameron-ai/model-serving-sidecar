@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import ai.ameron.sidecar.TestUtil;
 import ai.ameron.sidecar.core.predict.Prediction;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class ModelPredictionTest {
 
   ModelPrediction buildSuccessModelPrediction(){
-    return new ModelPrediction(false, null, null, "test-model", "1.0.0", 100L, "A");
+    return new ModelPrediction(false, null, null, "test-model", "1.0.0", 100L, TestUtil.buildNode("success"));
   }
 
   private void assertMatch(ModelPrediction modelPrediction, Prediction prediction) {

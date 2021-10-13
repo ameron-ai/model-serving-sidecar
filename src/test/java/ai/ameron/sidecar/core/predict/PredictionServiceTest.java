@@ -8,6 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ai.ameron.sidecar.TestUtil;
 import ai.ameron.sidecar.core.model.ModelServiceAdapter;
 import java.util.HashMap;
 import java.util.Set;
@@ -34,8 +35,8 @@ class PredictionServiceTest {
 
   @Test
   void predict() {
-    Prediction testPrimaryPrediction = new Prediction(false, null, null, "test-model-primary", "1.0.0", 0L, "");
-    Prediction testPrediction = new Prediction(false, null, null, "test-model", "1.0.0", 0L, "");
+    Prediction testPrimaryPrediction = new Prediction(false, null, null, "test-model-primary", "1.0.0", 0L, TestUtil.buildNode("success"));
+    Prediction testPrediction = new Prediction(false, null, null, "test-model", "1.0.0", 0L, TestUtil.buildNode("success"));
     PredictionResponse predictionResponse = PredictionResponse.success(0L, testPrimaryPrediction, Set.of(testPrediction));
     when(modelServiceAdapter.predict(any())).thenReturn(predictionResponse);
 

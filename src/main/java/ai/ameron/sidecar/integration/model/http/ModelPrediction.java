@@ -1,6 +1,7 @@
 package ai.ameron.sidecar.integration.model.http;
 
 import ai.ameron.sidecar.core.predict.Prediction;
+import com.fasterxml.jackson.databind.JsonNode;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ public class ModelPrediction {
   private String modelVersion;
   private Long timeTakenInMs;
 
-  private String value;
+  private JsonNode value;
 
   public static Prediction from(ModelPrediction modelPrediction) {
     Assert.notNull(modelPrediction, "modelPrediction cannot be null");

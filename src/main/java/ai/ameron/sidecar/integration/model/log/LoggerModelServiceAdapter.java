@@ -1,9 +1,11 @@
 package ai.ameron.sidecar.integration.model.log;
 
 import ai.ameron.sidecar.core.predict.Prediction;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ai.ameron.sidecar.core.predict.PredictionResponse;
 import ai.ameron.sidecar.core.model.ModelServiceAdapter;
+import com.fasterxml.jackson.databind.node.TextNode;
 import java.util.Map;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -30,7 +32,10 @@ public class LoggerModelServiceAdapter implements ModelServiceAdapter {
   public PredictionResponse predict(Map<String, String> features) {
     log.info("Logging predict request for:" + objectMapper.writeValueAsString(features));
 
-    Prediction prediction = new Prediction(false, null, null, "logger-model", "1.0.0", 0L, "");
+    Prediction prediction = new Prediction(
+        false, null, null,
+        "logger-model", "1.0.0", 0L,
+        TextNode.valueOf(""));
     return PredictionResponse.success(0L, prediction, Set.of());
   }
 }

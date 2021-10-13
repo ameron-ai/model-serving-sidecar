@@ -10,6 +10,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
+import ai.ameron.sidecar.TestUtil;
 import ai.ameron.sidecar.core.model.ModelServiceErrorCodes;
 import ai.ameron.sidecar.core.predict.PredictionResponse;
 import java.util.HashMap;
@@ -82,7 +83,7 @@ class HttpModelServiceAdapterTest {
   }
 
   ModelPrediction buildSuccessModelPrediction(){
-    return new ModelPrediction(false, null, null, "test-model", "1.0.0", 100L, "A");
+    return new ModelPrediction(false, null, null, "test-model", "1.0.0", 100L, TestUtil.buildNode("success"));
   }
 
   ModelPrediction buildErrorModelPrediction(){
