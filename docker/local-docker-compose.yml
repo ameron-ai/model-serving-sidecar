@@ -5,9 +5,10 @@ services:
     image: ameron/sidecar:1.0.0
     environment:
       - APP_NAME=ameron-sidecar
-      - APP_MODEL_BACKEND=logger
-      - APP_PROVIDER_KAFKA_BROKERS=localhost
+      - APP_MODEL_BACKEND=http
+      - APP_MODEL_HTTP_URL=http://localhost:8000/predict
       - APP_PREDICTION_EVENT_CONSUMER=kafka
+      - APP_PROVIDER_KAFKA_BROKERS=localhost
     network_mode: host
 
   kafka:
