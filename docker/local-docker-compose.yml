@@ -5,23 +5,21 @@ services:
     image: ameron/sidecar:1.0.0
     environment:
       - APP_NAME=ameron-sidecar
-      - APP_MODEL_HTTP_URL=http://model:8000/predict
       - APP_MODEL_BACKEND=logger
-    ports:
-    - "8080:8080"
+      - APP_PROVIDER_KAFKA_BROKERS=localhost
+      - APP_PREDICTION_EVENT_CONSUMER=kafka
+    network_mode: host
+
   kafka:
     image: wurstmeister/kafka
-    ports:
-      - "9092:9092"
+    network_mode: host
     environment:
-      - KAFKA_ADVERTISED_HOST_NAME=127.0.0.1
+      - KAFKA_ADVERTISED_HOST_NAME=localhost
       - KAFKA_ADVERTISED_PORT=9092
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ZOOKEEPER_CONNECT=localhost:2181
     depends_on:
       - zookeeper
+
   zookeeper:
     image: wurstmeister/zookeeper
-    ports:
-      - "2181:2181"
-    environment:
-      - KAFKA_ADVERTISED_HOST_NAME=zookeeper
+    network_mode: host

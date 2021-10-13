@@ -9,10 +9,10 @@ test:
 dist:
 	mvn clean package
 
-image:
+image: dist
 	docker build -f docker/Dockerfile -t ${IMAGE_NAME} .
 
-run: dist image
+run: image
 	docker run --name sidecar --env-file docker/local.env ${IMAGE_NAME}
 
 stop:
@@ -24,9 +24,8 @@ run-supporting:
 stop-supporting:
 	docker-compose -f docker/supporting-docker-compose.yml down
 
-run-all: dist image
+run-all: image
 	docker-compose -f docker/local-docker-compose.yml up
 
 stop-all:
 	docker-compose -f docker/local-docker-compose.yml down
-
