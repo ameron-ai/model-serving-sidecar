@@ -1,4 +1,4 @@
-FROM openjdk:16-slim-buster
+FROM openjdk:11-slim-buster
 
 RUN mkdir /app
 COPY target/sidecar-1.0-SNAPSHOT.jar /app/app.jar

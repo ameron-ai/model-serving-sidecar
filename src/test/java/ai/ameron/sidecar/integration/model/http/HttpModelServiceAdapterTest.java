@@ -11,7 +11,6 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import ai.ameron.sidecar.TestUtil;
-import ai.ameron.sidecar.core.model.ModelServiceErrorCodes;
 import ai.ameron.sidecar.core.predict.PredictionResponse;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,28 +65,11 @@ class HttpModelServiceAdapterTest {
     assertEquals(100, response.getTimeTakenInMs());
   }
 
-  @Test
-  void buildFailureResponseErrorMessage(){
-    ModelPredictionResponse body = new ModelPredictionResponse(new ModelPrediction(), Set.of());
-    String result = service.buildFailureResponseErrorMessage(ResponseEntity.status(200).body(body));
-
-    assertNotNull(result);
-    assertTrue(result.endsWith("200"));
-  }
-
-  @Test
-  void buildFailureResponseErrorMessageNullResponse(){
-    String result = service.buildFailureResponseErrorMessage(null);
-
-    assertNotNull(result);
-  }
-
   ModelPrediction buildSuccessModelPrediction(){
-    return new ModelPrediction(false, null, null, "test-model", "1.0.0", 100L, TestUtil.buildNode("success"));
-  }
-
-  ModelPrediction buildErrorModelPrediction(){
-    return new ModelPrediction(true, ModelServiceErrorCodes.ERROR_CALLING_MODEL_SERVICE, null, "test-model", "1.0.0", 100L, null);
+    return new ModelPrediction(
+        false, null, null,
+        "test-model", "1.0.0", 100L,
+        TestUtil.buildNode("success"));
   }
 
   @Test

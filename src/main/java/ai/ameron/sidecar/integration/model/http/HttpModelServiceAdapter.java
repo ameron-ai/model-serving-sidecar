@@ -1,7 +1,9 @@
 package ai.ameron.sidecar.integration.model.http;
 
-import ai.ameron.sidecar.core.model.ModelServiceErrorCodes;
+import static ai.ameron.sidecar.core.model.ModelServiceErrorCodes.ERROR_RECEIVED_FROM_MODEL_SERVICE;
+
 import ai.ameron.sidecar.core.model.ModelServiceAdapter;
+import ai.ameron.sidecar.core.model.ModelServiceErrorCodes;
 import ai.ameron.sidecar.core.predict.PredictionResponse;
 import java.util.Map;
 import lombok.AllArgsConstructor;
@@ -36,7 +38,7 @@ public class HttpModelServiceAdapter implements ModelServiceAdapter {
   }
 
   PredictionResponse handleSuccessResponse(
-      ResponseEntity<ModelPredictionResponse> response, Long timeTakenInMs) {
+      ResponseEntity<ModelPredictionResponse> response, long timeTakenInMs) {
     Assert.notNull(response, "A successful Model Service call response must have contents");
 
     ModelPredictionResponse responseBody = response.getBody();
@@ -49,51 +51,47 @@ public class HttpModelServiceAdapter implements ModelServiceAdapter {
   }
 
   PredictionResponse buildFailurePredictionResponse(
-      Long timeTakenInMs,
-      String errorMessage,
+      long timeTakenInMs,
       ResponseEntity<ModelPredictionResponse> response){
+    ModelServiceErrorCodes error = ERROR_RECEIVED_FROM_MODEL_SERVICE;
+
     if(response != null && response.getBody() != null){
       ModelPredictionResponse modelPredictionResponse = response.getBody();
+      String errorMessage = error.buildErrorMessage(response.getStatusCodeValue());
 
       return PredictionResponse.error(
-          timeTakenInMs, ModelServiceErrorCodes.ERROR_RECEIVED_FROM_MODEL_SERVICE, errorMessage,
+          timeTakenInMs, error.getCode(), errorMessage,
           ModelPrediction.from(modelPredictionResponse.getPrediction()),
           ModelPrediction.from(modelPredictionResponse.getSecondaryPredictions()));
     } else {
-      return PredictionResponse.error(
-          timeTakenInMs, ModelServiceErrorCodes.ERROR_RECEIVED_FROM_MODEL_SERVICE, errorMessage);
+      String errorMessage = error.buildErrorMessage("");
+      return PredictionResponse.error(timeTakenInMs, error.getCode(), errorMessage);
     }
-  }
-
-  String buildFailureResponseErrorMessage(ResponseEntity<ModelPredictionResponse> response){
-    return "Error response received from Model Service: " +
-        (response != null ? response.getStatusCodeValue() : "");
   }
 
   PredictionResponse handleFailureResponse(
       ResponseEntity<ModelPredictionResponse> response, Long timeTakenInMs) {
-    String errorMessage = buildFailureResponseErrorMessage(response);
-    log.error(errorMessage);
-
-    return buildFailurePredictionResponse(timeTakenInMs, errorMessage, response);
+    PredictionResponse predictionResponse = buildFailurePredictionResponse(timeTakenInMs, response);
+    log.error(predictionResponse.getErrorMessage());
+    return predictionResponse;
   }
 
   PredictionResponse handleRestClientException(Long timeTakenInMs, RestClientException rce) {
-    String errorMessage = "Error occurred calling Model: " + rce.getMessage();
+    ModelServiceErrorCodes error = ModelServiceErrorCodes.ERROR_CALLING_MODEL_SERVICE;
+    String errorMessage = error.buildErrorMessage(rce.getMessage());
     log.error(errorMessage, rce);
 
-    return PredictionResponse.error(
-        timeTakenInMs, ModelServiceErrorCodes.ERROR_CALLING_MODEL_SERVICE, errorMessage);
+    return PredictionResponse.error(timeTakenInMs, error.getCode(), errorMessage);
   }
 
   @Override
   public PredictionResponse predict(Map<String, String> features){
     PredictionResponse predictionResponse;
 
-    Long start = System.currentTimeMillis();
+    long start = System.currentTimeMillis();
     try {
       ResponseEntity<ModelPredictionResponse> response = callModelService(features);
-      Long timeTakenInMs = System.currentTimeMillis() - start;
+      long timeTakenInMs = System.currentTimeMillis() - start;
 
       if(isSuccessResponse(response)){
         predictionResponse = handleSuccessResponse(response, timeTakenInMs);
@@ -101,7 +99,7 @@ public class HttpModelServiceAdapter implements ModelServiceAdapter {
         predictionResponse = handleFailureResponse(response, timeTakenInMs);
       }
     } catch (RestClientException rce){
-      Long timeTakenInMs = System.currentTimeMillis() - start;
+      long timeTakenInMs = System.currentTimeMillis() - start;
       predictionResponse = handleRestClientException(timeTakenInMs, rce);
     }
 

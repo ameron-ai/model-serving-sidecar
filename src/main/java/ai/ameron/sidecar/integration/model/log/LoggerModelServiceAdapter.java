@@ -1,10 +1,9 @@
 package ai.ameron.sidecar.integration.model.log;
 
-import ai.ameron.sidecar.core.predict.Prediction;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import ai.ameron.sidecar.core.predict.PredictionResponse;
 import ai.ameron.sidecar.core.model.ModelServiceAdapter;
+import ai.ameron.sidecar.core.predict.Prediction;
+import ai.ameron.sidecar.core.predict.PredictionResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.TextNode;
 import java.util.Map;
 import java.util.Set;

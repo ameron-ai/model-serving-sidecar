@@ -1,7 +1,7 @@
 package ai.ameron.sidecar.core.event;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ai.ameron.sidecar.core.predict.PredictionResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.springframework.context.ApplicationEvent;

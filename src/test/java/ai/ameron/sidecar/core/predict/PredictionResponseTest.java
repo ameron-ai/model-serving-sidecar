@@ -5,10 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import ai.ameron.sidecar.TestUtil;
 import ai.ameron.sidecar.core.model.ModelServiceErrorCodes;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.TextNode;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -22,9 +19,10 @@ public class PredictionResponseTest {
   }
 
   Prediction buildErrorPrediction(){
+    ModelServiceErrorCodes error = ModelServiceErrorCodes.ERROR_CALLING_MODEL_SERVICE;
     return new Prediction(
-        true, ModelServiceErrorCodes.ERROR_CALLING_MODEL_SERVICE, "Error",
-        "success-model", "1.0.0", 100L, buildNode("success"));
+        true, error.getCode(), error.buildErrorMessage(""),
+        "success-model", "1.0.0", 100L, buildNode("failure"));
   }
 
   @Test
@@ -51,15 +49,17 @@ public class PredictionResponseTest {
 
   @Test
   void errorPredictionResponse(){
+    ModelServiceErrorCodes errorCode = ModelServiceErrorCodes.ERROR_RECEIVED_FROM_MODEL_SERVICE;
+
     PredictionResponse predictionResponse = PredictionResponse.error(
         100L,
-        ModelServiceErrorCodes.ERROR_RECEIVED_FROM_MODEL_SERVICE, "An error description",
+        errorCode.getCode(), errorCode.buildErrorMessage(""),
         buildErrorPrediction(),
         Set.of());
 
     assertNotNull(predictionResponse);
-    assertEquals(ModelServiceErrorCodes.ERROR_RECEIVED_FROM_MODEL_SERVICE, predictionResponse.getErrorCode());
-    assertEquals("An error description", predictionResponse.getErrorMessage());
+    assertEquals(errorCode.getCode(), predictionResponse.getErrorCode());
+    assertEquals(errorCode.buildErrorMessage(""), predictionResponse.getErrorMessage());
     assertEquals(0, predictionResponse.getPredictionCount());
   }
 
