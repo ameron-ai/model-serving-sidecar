@@ -1,4 +1,4 @@
-package ai.ameron.sidecar.integration.event.kafka;
+package ai.ameron.sidecar.integration.event.stream;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
 @Setter(value = AccessLevel.PACKAGE)
 @ConditionalOnProperty(
     value="app.prediction-event.consumer",
-    havingValue = "kafka")
+    havingValue = "stream")
 @Configuration
-public class KafkaPredictionEventConsumerConfiguration {
-  @Value("${app.prediction-event.consumer.kafka.topic}")
-  private String topic;
+public class StreamPredictionEventConsumerConfiguration {
+  @Value("${app.prediction-event.consumer.binding.name}")
+  private String bindingName;
 }

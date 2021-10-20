@@ -20,11 +20,14 @@ Each Prediction will have at minimum the following information:
 - timeTakenInMs
 - value
 
-### Provider Adapter
+### Provider
 A Provider exposes an API for clients to call to get Predictions. REST and Kakfa have been implemented.
 
 ### Model Service Adapter
 A Model Service executes a Model. The Adapters provide a mechanism to call these Services. HTTP has been implemented.
+
+### Prediction Reporter 
+A Prediction Reporter sends Predictions for later usage. For example analysis by monitoring systems or for usage in training.
 
 ## Provider APIs
 ### Synchronous

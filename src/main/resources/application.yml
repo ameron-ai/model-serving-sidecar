@@ -4,26 +4,17 @@ spring:
   cloud:
     stream:
       function:
-        definition: predictionRequestProcessor
+        definition: predictionRequestProcessor;predictionEventProcessor
       bindings:
+        predictionEventProcessor-out-0:
+          destination: ${APP_REPORTER_KAFKA_PREDICTION_EVENT_OUT_TOPIC:prediction-event}
         predictionRequestProcessor-in-0:
           destination: ${APP_PROVIDER_KAFKA_IN_TOPIC:prediction-request}
           group: ${APP_PROVIDER_KAFKA_IN_GROUP:prediction-processor}
         predictionRequestProcessor-out-0:
           destination: ${APP_PROVIDER_KAFKA_OUT_TOPIC:prediction-response}
-      kafka:
         binder:
-          brokers: ${APP_PROVIDER_KAFKA_BROKERS:localhost}
-
-spring.kafka.consumer:
-  auto-offset-reset: ${APP_KAFKA_CONSUMER_OFFSET_RESET:earliest}
-  key-deserializer: ${APP_KAFKA_CONSUMER_KEY_DESERIALIZER:org.apache.kafka.common.serialization.StringDeserializer}
-  value-deserializer: ${APP_KAFKA_CONSUMER_VALUE_DESERIALIZER:org.springframework.kafka.support.serializer.JsonDeserializer}
-  properties.spring.json.trusted.packages: ${APP_KAFKA_CONSUMER_TRUSTED_PACKAGES:ai.ameron.sidecar.core.*}
-
-spring.kafka.producer:
-  key-serializer: ${APP_KAFKA_PRODUCER_KEY_SERIALIZER:org.apache.kafka.common.serialization.StringSerializer}
-  value-serializer: ${APP_KAFKA_PRODUCER_VALUE_SERIALIZER:org.springframework.kafka.support.serializer.JsonSerializer}
+          brokers: ${APP_PROVIDER_KAFKA_BROKERS:PLAINTEXT://localhost}
 
 logging:
   level:
@@ -39,5 +30,5 @@ app:
     adapter.backend: ${APP_MODEL_BACKEND:logger}
     adapter.backend.http.url: ${APP_MODEL_HTTP_URL}
   prediction-event:
-    consumer: ${APP_PREDICTION_EVENT_CONSUMER:logger}
-    consumer.kafka.topic: ${APP_KAFKA_PREDICTION_EVENT_CONSUMER_TOPIC:prediction-event}
+    consumer: ${APP_PREDICTION_EVENT_CONSUMER:stream}
+    consumer.binding.name: ${APP_STREAM_PREDICTION_EVENT_CONSUMER_BINDING_NAME:predictionEventProcessor-out-0}
