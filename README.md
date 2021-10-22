@@ -1,3 +1,5 @@
+![example workflow](https://github.com/ameron-ai/model-serving-sidecar/actions/workflows/maven.yml/badge.svg)
+
 # Ameron Sidecar
 ## Overview
 The Sidecar is a simple facade between your Models and clients of your Models. It takes care of several crosscutting DevOps and MLOps concerns for you. It does this through a lightweight Spring Boot application and standardized APIs.
