@@ -1,4 +1,4 @@
-package ai.ameron.sidecar.integration.event.logger;
+package ai.ameron.sidecar.integration.reporter.log;
 
 import ai.ameron.sidecar.core.event.PredictionEvent;
 import lombok.extern.slf4j.Slf4j;

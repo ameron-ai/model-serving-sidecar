@@ -26,8 +26,8 @@ A Provider exposes an API for clients to call to get Predictions. REST and Kakfa
 ### Model Service Adapter
 A Model Service executes a Model. The Adapters provide a mechanism to call these Services. HTTP has been implemented.
 
-### Prediction Reporter 
-A Prediction Reporter sends Predictions for later usage. For example analysis by monitoring systems or for usage in training.
+### Reporter 
+A Reporter sends Predictions for later usage. For example, analysis by monitoring systems or for usage in training.
 
 ## Provider APIs
 ### Synchronous
@@ -46,6 +46,10 @@ Run just the Sidecar:
 Run the Sidecar, and a local Kafka and Zookeeper instances
 
     make run-all
+
+Run a local Kafka and Zookeeper instances
+
+    make run-supporting
 
 # Roadmap
 - Performance tests

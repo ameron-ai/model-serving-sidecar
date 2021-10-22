@@ -1,4 +1,4 @@
-IMAGE_NAME = ameron/sidecar:1.0.0
+IMAGE_NAME = ameron/sidecar:0.0.1
 
 default:
 	cat Makefile

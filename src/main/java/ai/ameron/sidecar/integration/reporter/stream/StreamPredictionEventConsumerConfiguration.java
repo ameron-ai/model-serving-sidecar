@@ -1,4 +1,4 @@
-package ai.ameron.sidecar.integration.event.stream;
+package ai.ameron.sidecar.integration.reporter.stream;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package ai.ameron.sidecar.integration.event.stream;
+package ai.ameron.sidecar.integration.reporter.stream;
 
 import ai.ameron.sidecar.core.event.PredictionEvent;
 import lombok.AllArgsConstructor;

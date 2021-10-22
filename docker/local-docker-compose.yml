@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   sidecar:
-    image: ameron/sidecar:1.0.0
+    image: ameron/sidecar:0.0.1
     environment:
       - APP_NAME=ameron-sidecar
       - APP_MODEL_BACKEND=http
