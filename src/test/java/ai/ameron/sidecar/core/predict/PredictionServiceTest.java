@@ -43,7 +43,7 @@ class PredictionServiceTest {
 
     verify(publisher, times(1)).publishEvent(any(ApplicationEvent.class));
     assertNotNull(response);
-    assertEquals(1, response.getPredictionCount());
+    assertEquals(2, response.getPredictionCount());
     assertEquals(testPrimaryPrediction.getModelName(), response.getPrediction().getModelName());
   }
 }

@@ -133,7 +133,7 @@ class HttpModelServiceAdapterTest {
     assertNull(predictionResponse.getErrorCode());
     assertNull(predictionResponse.getErrorMessage());
 
-    assertEquals(1, predictionResponse.getPredictionCount());
+    assertEquals(2, predictionResponse.getPredictionCount());
     assertTrue(predictionResponse.getSecondaryPredictions().iterator().hasNext());
   }
 

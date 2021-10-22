@@ -20,7 +20,9 @@ public class PredictionResponse {
       Long timeTakenInMs, Prediction prediction, Set<Prediction> secondaryPredictions) {
     this.timeTakenInMs = timeTakenInMs;
     this.prediction = prediction;
-    this.secondaryPredictions.addAll(secondaryPredictions);
+
+    if(secondaryPredictions != null)
+      this.secondaryPredictions.addAll(secondaryPredictions);
   }
 
   private PredictionResponse(
@@ -31,7 +33,9 @@ public class PredictionResponse {
     this.errorCode = errorCode;
     this.errorMessage = errorMessage;
     this.prediction = prediction;
-    this.secondaryPredictions.addAll(secondaryPredictions);
+
+    if(secondaryPredictions != null)
+      this.secondaryPredictions.addAll(secondaryPredictions);
   }
 
   private static boolean hasAtLeastOnePrediction(Prediction prediction, Set<Prediction> secondaryPredictions){
@@ -60,7 +64,7 @@ public class PredictionResponse {
   }
 
   public int getPredictionCount() {
-    return secondaryPredictions.size();
+    return secondaryPredictions.size() + (prediction != null ? 1 : 0);
   }
 }
 

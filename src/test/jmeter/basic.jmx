@@ -47,11 +47,9 @@
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
 	&quot;features&quot;:{&#xd;
-		&quot;pickup_location_id&quot;: 75,&#xd;
-		&quot;pickup_hour_of_day&quot;: 7,&#xd;
-  		&quot;pickup_day_of_week&quot;: 2,&#xd;
-  		&quot;pickup_week_of_year&quot;: 50,&#xd;
-  		&quot;passenger_count&quot;: 2 &#xd;
+		&quot;feature_one&quot;: 1,&#xd;
+		&quot;feature_two&quot;: 2,&#xd;
+  		&quot;feature_three&quot;: &quot;3&quot; &#xd;
   		}&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>

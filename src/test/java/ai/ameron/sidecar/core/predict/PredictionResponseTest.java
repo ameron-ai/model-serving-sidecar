@@ -21,7 +21,7 @@ public class PredictionResponseTest {
         PredictionResponse.success(100L, buildSuccessPrediction(), predictions);
 
     assertNotNull(predictionResponse);
-    assertEquals(1, predictionResponse.getPredictionCount());
+    assertEquals(2, predictionResponse.getPredictionCount());
   }
 
   @Test
@@ -47,7 +47,7 @@ public class PredictionResponseTest {
     assertNotNull(predictionResponse);
     assertEquals(errorCode.getCode(), predictionResponse.getErrorCode());
     assertEquals(errorCode.buildErrorMessage(""), predictionResponse.getErrorMessage());
-    assertEquals(0, predictionResponse.getPredictionCount());
+    assertEquals(1, predictionResponse.getPredictionCount());
   }
 
   @Test

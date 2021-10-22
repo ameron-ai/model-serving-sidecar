@@ -20,8 +20,6 @@ public class StreamPredictionEventConsumer {
 
   @EventListener
   public void handlePredictionEvent(PredictionEvent event) {
-    log.debug("Sending PredictionEvent: " + event.asJson());
     streamBridge.send(configuration.getBindingName(), event);
-    log.debug("PredictionEvent sent");
   }
 }
