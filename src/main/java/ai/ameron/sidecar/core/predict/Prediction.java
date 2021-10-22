@@ -1,6 +1,7 @@
 package ai.ameron.sidecar.core.predict;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class Prediction {
   private String modelName;
   private String modelVersion;
 
+  private LocalDateTime executedAt;
   private Long timeTakenInMs;
   private JsonNode value;
 }

@@ -1,6 +1,7 @@
 package ai.ameron.sidecar.core.predict;
 
-import static ai.ameron.sidecar.TestUtil.buildNode;
+import static ai.ameron.sidecar.core.predict.PredictionTestUtils.buildErrorPrediction;
+import static ai.ameron.sidecar.core.predict.PredictionTestUtils.buildSuccessPrediction;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,20 +12,6 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 public class PredictionResponseTest {
-
-  Prediction buildSuccessPrediction(){
-    return new Prediction(
-        false, null, null,
-        "success-model", "1.0.0", 100L, buildNode("success"));
-  }
-
-  Prediction buildErrorPrediction(){
-    ModelServiceErrorCodes error = ModelServiceErrorCodes.ERROR_CALLING_MODEL_SERVICE;
-    return new Prediction(
-        true, error.getCode(), error.buildErrorMessage(""),
-        "success-model", "1.0.0", 100L, buildNode("failure"));
-  }
-
   @Test
   void successPredictionResponse(){
     Set<Prediction> predictions = new HashSet<>();

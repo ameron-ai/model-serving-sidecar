@@ -46,8 +46,8 @@ public class HttpModelServiceAdapter implements ModelServiceAdapter {
 
     return PredictionResponse.success(
         timeTakenInMs,
-        responseBody.getPrediction() != null ? ModelPrediction.from(responseBody.getPrediction()) : null,
-        ModelPrediction.from(responseBody.getSecondaryPredictions()));
+        responseBody.getPrediction(),
+        responseBody.getSecondaryPredictions());
   }
 
   PredictionResponse buildFailurePredictionResponse(
@@ -61,8 +61,8 @@ public class HttpModelServiceAdapter implements ModelServiceAdapter {
 
       return PredictionResponse.error(
           timeTakenInMs, error.getCode(), errorMessage,
-          ModelPrediction.from(modelPredictionResponse.getPrediction()),
-          ModelPrediction.from(modelPredictionResponse.getSecondaryPredictions()));
+          modelPredictionResponse.getPrediction(),
+          modelPredictionResponse.getSecondaryPredictions());
     } else {
       String errorMessage = error.buildErrorMessage("");
       return PredictionResponse.error(timeTakenInMs, error.getCode(), errorMessage);

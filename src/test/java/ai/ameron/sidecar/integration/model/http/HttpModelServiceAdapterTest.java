@@ -11,7 +11,9 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import ai.ameron.sidecar.TestUtil;
+import ai.ameron.sidecar.core.predict.Prediction;
 import ai.ameron.sidecar.core.predict.PredictionResponse;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -65,10 +67,10 @@ class HttpModelServiceAdapterTest {
     assertEquals(100, response.getTimeTakenInMs());
   }
 
-  ModelPrediction buildSuccessModelPrediction(){
-    return new ModelPrediction(
+  Prediction buildSuccessModelPrediction(){
+    return new Prediction(
         false, null, null,
-        "test-model", "1.0.0", 100L,
+        "test-model", "1.0.0", LocalDateTime.now(), 100L,
         TestUtil.buildNode("success"));
   }
 

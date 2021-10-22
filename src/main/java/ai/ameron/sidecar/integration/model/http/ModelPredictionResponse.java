@@ -1,5 +1,6 @@
 package ai.ameron.sidecar.integration.model.http;
 
+import ai.ameron.sidecar.core.predict.Prediction;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class ModelPredictionResponse {
-  private ModelPrediction prediction;
-  private Set<ModelPrediction> secondaryPredictions = new HashSet<>();
+  private Prediction prediction;
+  private Set<Prediction> secondaryPredictions = new HashSet<>();
 }
 

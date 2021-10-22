@@ -5,6 +5,7 @@ import ai.ameron.sidecar.core.predict.Prediction;
 import ai.ameron.sidecar.core.predict.PredictionResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.TextNode;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -33,7 +34,7 @@ public class LoggerModelServiceAdapter implements ModelServiceAdapter {
 
     Prediction prediction = new Prediction(
         false, null, null,
-        "logger-model", "1.0.0", 0L,
+        "logger-model", "1.0.0", LocalDateTime.now(), 0L,
         TextNode.valueOf(""));
     return PredictionResponse.success(0L, prediction, Set.of());
   }
