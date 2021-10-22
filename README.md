@@ -8,6 +8,8 @@ This allows your Model serving code to stick to a single responsibility.
 
 ![High Level Design](overview.jpg)
 
+You can find an example of a Python Model Service at https://github.com/ameron-ai/model-serving-sidecar-service-example 
+
 ## Concepts
 ### Prediction
 A Prediction is an output from a Machine Learning model, whether that is Classification, Regression or other.
@@ -55,7 +57,6 @@ Run a local Kafka and Zookeeper instances
 - Performance tests
 - Increased Unit Test coverage
 - CI/CD pipeline
-- Model Service example
 - Single Docker container for Model Service and Sidecar example
 - Prediction schemas
 - Feature schemas
